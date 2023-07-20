@@ -1,8 +1,28 @@
-const express = require('express');
-const cors = require('cors');
-const app = express();
+/*
+Version: TCSS 460 A Assignment 3
+Author: Lixin Wang
+Date: 07/19/2023
+*/
 
+/* 
+Imports the Express.js module.
+Provides a web application framework for building APIs and web applications.
+*/
+const express = require('express');
+const path = require('path');
+// Imports the CORS (Cross-Origin Resource Sharing) middleware module
+const cors = require('cors');
+// Create an instance of the Express.js application
+const app = express();
+//An Express.js middleware setup that enables CORS for the Express application
 app.use(cors());
+// Serve static files from the current directory
+app.use(express.static(path.join(__dirname)));
+// Serve index.html page using Node.js
+app.get('/', (req, res) => {
+    res.sendFile(path.join(__dirname, 'index.html'));
+});
+
 // BMI route
 app.get('/bmi', (req, res) => {
     // Calculate the BMI based on the request parameters or body data
@@ -87,7 +107,7 @@ app.get('/caloriesburned', (req, res) => {
     console.log("api is called");
 });
 
-//start the listener
+//start the server
 app.listen(3000, () => {
     console.log('Server is running on http://localhost:3000');
 });
